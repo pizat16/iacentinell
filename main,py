@@ -1,0 +1,29 @@
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+from app.auth.routes import router as auth_router
+from app.threat.routes import router as threat_router
+from app.network.routes import router as network_router
+from app.guardian.routes import router as guardian_router
+from app.audit.routes import router as audit_router
+from app.websocket.routes import router as websocket_router
+
+app = FastAPI(
+    title="IA CENTINELL API",
+    version="1.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(auth_router, prefix="/auth")
+app.include_router(threat_router, prefix="/threat")
+app.include_router(network_router, prefix="/network")
+app.include_router(guardian_router, prefix="/guardian")
+app.include_router(audit_router, prefix="/audit")
+app.include_router(websocket_router)
