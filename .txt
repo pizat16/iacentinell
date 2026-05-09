@@ -1,0 +1,58 @@
+ia-centinell-backend/
+├── backend/
+│   ├── app/
+│   │   ├── __init__.py                    (vacío)
+│   │   ├── main.py
+│   │   ├── core/
+│   │   │   ├── __init__.py               (vacío)
+│   │   │   ├── config.py
+│   │   │   ├── database.py
+│   │   │   ├── security.py
+│   │   │   └── websocket_manager.py
+│   │   ├── auth/
+│   │   │   ├── __init__.py               (vacío)
+│   │   │   ├── models.py
+│   │   │   ├── schemas.py
+│   │   │   ├── service.py
+│   │   │   └── routes.py
+│   │   ├── audit/
+│   │   │   ├── __init__.py               (vacío)
+│   │   │   ├── models.py
+│   │   │   ├── logger.py
+│   │   │   └── routes.py
+│   │   ├── threat/
+│   │   │   ├── __init__.py               (vacío)
+│   │   │   ├── scanner.py
+│   │   │   ├── engine.py
+│   │   │   ├── reputation.py
+│   │   │   └── routes.py
+│   │   ├── network/
+│   │   │   ├── __init__.py               (vacío)
+│   │   │   ├── analyzer.py
+│   │   │   ├── firewall.py
+│   │   │   └── routes.py
+│   │   ├── guardian/
+│   │   │   ├── __init__.py               (vacío)
+│   │   │   ├── integrity.py
+│   │   │   ├── watcher.py
+│   │   │   └── routes.py
+│   │   ├── websocket/
+│   │   │   ├── __init__.py               (vacío)
+│   │   │   └── routes.py
+│   │   ├── services/
+│   │   │   ├── __init__.py               (vacío)
+│   │   │   ├── hash_service.py
+│   │   │   ├── file_service.py
+│   │   │   └── alert_service.py
+│   │   ├── models/
+│   │   │   ├── __init__.py               (vacío)
+│   │   │   └── base.py
+│   │   └── uploads/
+│   │       └── .gitkeep                  (vacío)
+│   ├── init.sql
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── .env.example
+│   ├── .gitignore
+│   └── README.md
