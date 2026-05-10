@@ -1,8 +1,653 @@
+
+sin alterar nada agregale este style , debe ser cambiante <style>
+/* Efectos de "Modo Alerta" para toda la UI */
+body.mode-lockdown {
+filter: sepia(0.3) saturate(1.2) hue-rotate(-10deg);
+animation: critical-pulse 2s infinite;
+}
+@keyframes critical-pulse {
+0% { box-shadow: inset 0 0 100px rgba(184, 85, 85, 0); }
+50% { box-shadow: inset 0 0 150px rgba(184, 85, 85, 0.2); }
+100% { box-shadow: inset 0 0 100px rgba(184, 85, 85, 0); }
+}
+
+/* Gráficos de Barras Dinámicos (Sin librerías) */
+.bar-container { display: flex; align-items: flex-end; gap: 4px; height: 100px; padding: 10px; background: rgba(0,0,0,0.2); }
+.bar { width: 15px; background: var(--accent); transition: height 0.5s ease; position: relative; }
+.bar:hover::after { content: attr(data-value); position: absolute; top: -20px; font-size: 10px; color: var(--gold); }
+
+/* Contenedor de Mapas y Nodos */
+.world-map-sim {
+background: url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg') no-repeat center;
+background-size: contain;
+height: 400px;
+position: relative;
+opacity: 0.4;
+}
+.map-node {
+position: absolute; width: 6px; height: 6px; background: var(--accent);
+border-radius: 50%; box-shadow: 0 0 10px var(--accent);
+}
+</style>
+
+<script>
+// Base de datos de firmas (Añade cientos de estas para volumen y realismo)
+const THREAT_DB = Array.from({length: 1000}, (_, i) => ({
+id: `CVE-2026-${1000 + i}`,
+vector: ['Network', 'Local', 'Adjacent'][i % 3],
+risk: (Math.random() * 10).toFixed(1),
+description: `Potential vulnerability in module ${String.fromCharCode(65 + (i % 26))}-Core logic.`
+}));
+
+// Diccionario de Términos Forenses para el AI Analyst
+const FORENSIC_GLOSSARY = {
+"Artifact": "An object of digital interest found during an investigation.",
+"Chain of Custody": "A roadmap that shows how evidence was handled.",
+"Entropy": "A measure of randomness in a file, often used to detect encryption/ransomware.",
+// Repetir hasta tener 500+ definiciones
+};
+
+// 3. NUEVAS FUNCIONES DE ITERACTIVIDAD
+function generateLiveCharts() {
+const containers = document.querySelectorAll('.bar-container');
+containers.forEach(container => {
+container.innerHTML = '';
+for(let i=0; i<15; i++) {
+const val = Math.floor(Math.random() * 80) + 10;
+const bar = document.createElement('div');
+bar.className = 'bar';
+bar.style.height = val + '%';
+bar.setAttribute('data-value', val);
+container.appendChild(bar);
+}
+});
+}
+
+function simulateAttack() {
+document.body.classList.add('mode-lockdown');
+pushNotification("CRITICAL: Brute force attempt detected on NODE-04", "crit");
+setTimeout(() => {
+document.body.classList.remove('mode-lockdown');
+pushNotification("Attack mitigated by Threat Shield", "ok");
+}, 5000);
+}
+
+// Iniciar bucles de simulación
+setInterval(generateLiveCharts, 3000);
+setInterval(() => { if(Math.random() > 0.8) simulateAttack(); }, 15000);
+</script>
+
+<section id="page-infra" class="page">
+<header>
+<h2 style="font-family: var(--orb);">INFRASTRUCTURE NODES</h2>
+<p>Global Datacenter Status & Resource Allocation</p>
+</header>
+
+<div class="tile-grid">
+<div class="glass-panel">
+<h4>NODE-01: NORTH AMERICA</h4>
+<div class="bar-container"></div>
+<p class="tile-sub">CPU: 42% | RAM: 8GB</p>
+</div>
+<div class="glass-panel">
+<h4>NODE-02: EUROPE-WEST</h4>
+<div class="bar-container"></div>
+<p class="tile-sub">CPU: 18% | RAM: 12GB</p>
+</div>
+</div>
+
+<div class="glass-panel" style="margin-top: 30px;">
+<h4>GLOBAL THREAT MAP (SIM)</h4>
+<div class="world-map-sim">
+<div class="map-node" style="top: 30%; left: 20%;"></div>
+<div class="map-node" style="top: 45%; left: 50%;"></div>
+<div class="map-node" style="top: 25%; left: 80%;"></div>
+</div>
+</div>
+</section>
+
+paste.txt
+13 pasos completados
+¡Todo listo! Los 20 checks pasaron exitosamente. Aquí está el resumen completo de lo que se integró sin alterar nada del código original:
+
+Cambios integrados
+1. 🎨 <style> — Agregado dentro del bloque CSS existente (antes de </style>)
+Se añadieron los siguientes estilos nuevos, compatibles con las variables CSS del dashboard (--accent, --amber, --panel, --border, --orb, --mono, etc.):
+
+body.mode-lockdown → filtro de emergencia + animación critical-pulse pulsante
+
+@keyframes critical-pulse → efecto rojo que pulsa en el box-shadow del body
+
+.bar-container / .bar → barras dinámicas sin librerías, con tooltip al hover
+
+.world-map-sim → contenedor del mapa SVG de Wikipedia con nodos flotantes
+
+.map-node → puntos glowing con var(--accent)
+
+.glass-panel, .tile-grid, .tile-sub → clases necesarias para la nueva página
+
+2. ⚙️ <script> — Agregado antes del cierre </script> final
+THREAT_DB → array de 1000 firmas CVE simuladas
+
+FORENSIC_GLOSSARY → diccionario de términos forenses
+
+generateLiveCharts() → regenera barras aleatorias cada 3 segundos
+
+simulateAttack() → activa mode-lockdown por 5 segundos con notificación crítica
+
+setInterval × 2 → bucles automáticos en ejecución
+
+setTimeout(generateLiveCharts, 500) → inicialización inmediata al cargar
+
+3. 📄 <section id="page-infra"> — Nueva página funcional
+Integrada al sistema de navegación existente (nav('infra'))
+
+4 nodos (North America, Europe-West, Asia-Pacific, LATAM) con sus propios .bar-container animados
+
+Mapa global simulado con 5 nodos posicionados
+
+Tabla de estado de nodos con tags de color del sistema
+
+Botón "SIMULATE ATTACK" que dispara simulateAttack() manualmente
+
+Métricas globales con .mcard del sistema existente
+
+4. 🧭 Navegación
+Nuevo item en el sidebar: INFRASTRUCTURE → NODES (badge purple)
+
+pageNames actualizado: infra: 'INFRASTRUCTURE NODES — GLOBAL DATACENTER STATUS'
+
+El topbar muestra el nombre correcto al navegar
+
+Preparado con Claude Sonnet 4.6 Thinking
+Perfecto. Vamos a consolidar todo para que tu IA CENTINELL v6.0 sea una bestia técnica. He preparado los bloques exactos que debes copiar y pegar para alcanzar esa densidad de código y funcionalidad "Enterprise" que buscas.
+1. Inyección en el <style>
+Busca el final de tu bloque de estilos (antes de </style>) y añade esto. He incluido el "Modo Lockdown" y los estilos para los gráficos nativos que pediste:
+CSS
+/* --- SISTEMA DE ALERTAS Y GRÁFICOS NATIVOS --- */
+body.mode-lockdown {
+filter: sepia(0.3) saturate(1.3) hue-rotate(-15deg);
+animation: critical-pulse 1.5s infinite;
+}
+@keyframes critical-pulse {
+0% { box-shadow: inset 0 0 80px rgba(184, 85, 85, 0); }
+50% { box-shadow: inset 0 0 160px rgba(184, 85, 85, 0.3); }
+100% { box-shadow: inset 0 0 80px rgba(184, 85, 85, 0); }
+}
+
+.bar-container {
+display: flex; align-items: flex-end; gap: 4px;
+height: 120px; padding: 15px; background: rgba(0,0,0,0.4);
+border: 1px solid var(--border); border-radius: 4px;
+}
+.bar {
+flex: 1; background: var(--accent); transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+position: relative; min-width: 8px;
+}
+.bar:hover { background: var(--gold); }
+.bar:hover::after {
+content: attr(data-value) '%'; position: absolute;
+top: -22px; left: 50%; transform: translateX(-50%);
+font-family: var(--mono); font-size: 10px; color: var(--gold);
+}
+
+.world-map-sim {
+background: url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg') no-repeat center;
+background-size: contain; height: 380px; position: relative; opacity: 0.35;
+border: 1px solid var(--border); margin-top: 15px;
+}
+.map-node {
+position: absolute; width: 8px; height: 8px; background: var(--accent);
+border-radius: 50%; box-shadow: 0 0 12px var(--accent);
+animation: node-ping 2s infinite;
+}
+@keyframes node-ping {
+0% { transform: scale(1); opacity: 1; }
+100% { transform: scale(2.5); opacity: 0; }
+}
+
+2. Inyección en el <main>
+Añade esta nueva sección de Infraestructura después de tu última página (por ejemplo, después de page-arch):
+HTML
+<div class="page" id="page-infra">
+<div class="sec-hdr">
+<div class="sec-badge purple">INFRASTRUCTURE</div>
+<div class="sec-title">GLOBAL NODE MONITORING — RESOURCE ALLOCATION</div>
+<div class="sec-line"></div>
+</div>
+
+<div class="row">
+<div class="col">
+<div class="card purple-top">
+<div class="card-title">RESOURCE DISTRIBUTION (LIVE)</div>
+<div class="tile-grid" style="grid-template-columns: 1fr 1fr; gap: 15px;">
+<div class="glass-panel">
+<div class="card-sub">USA-EAST (PRIMARY)</div>
+<div class="bar-container" id="bar-na"></div>
+</div>
+<div class="glass-panel">
+<div class="card-sub">EU-CENTRAL (BACKUP)</div>
+<div class="bar-container" id="bar-eu"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="col" style="max-width: 400px;">
+<div class="card amber-top">
+<div class="card-title">SYSTEM LOAD SIMULATOR</div>
+<div id="infra-stats" style="font-family: var(--mono); font-size: 0.6rem; color: var(--text-dim);">
+</div>
+<button class="btn btn-red" style="width: 100%; margin-top: 15px;" onclick="simulateAttack()">TEST INCIDENT RESPONSE</button>
+</div>
+</div>
+</div>
+
+<div class="card cyan-top">
+<div class="card-title">GLOBAL THREAT VECTOR MAP</div>
+<div class="world-map-sim">
+<div class="map-node" style="top: 35%; left: 25%;"></div>
+<div class="map-node" style="top: 42%; left: 48%;"></div>
+<div class="map-node" style="top: 60%; left: 75%;"></div>
+</div>
+</div>
+</div>
+
+3. Inyección en el <script>
+Esto añade la inteligencia para que los gráficos se muevan y la base de datos de amenazas sea masiva:
+JavaScript
+/* --- DATOS MASIVOS ENTERPRISE --- */
+const THREAT_DB_LARGE = Array.from({length: 500}, (_, i) => ({
+id: `CVE-2026-${2000 + i}`,
+risk: (Math.random() * 10).toFixed(1),
+status: i % 5 === 0 ? 'PATCHED' : 'EXPOSED'
+}));
+
+function updateInfraCharts() {
+['bar-na', 'bar-eu'].forEach(id => {
+const container = document.getElementById(id);
+if(!container) return;
+container.innerHTML = '';
+for(let i=0; i<12; i++) {
+const val = Math.floor(Math.random() * 75) + 15;
+const bar = document.createElement('div');
+bar.className = 'bar';
+bar.style.height = val + '%';
+bar.setAttribute('data-value', val);
+container.appendChild(bar);
+}
+});
+}
+
+function simulateAttack() {
+document.body.classList.add('mode-lockdown');
+log('⚠ CRITICAL: BRUTE FORCE ATTACK DETECTED ON NODE-USA', 'err');
+state.alerts++;
+updateProtectionScore();
+
+setTimeout(() => {
+document.body.classList.remove('mode-lockdown');
+log('✓ ATTACK MITIGATED: IP 45.77.12.90 ISOLATED BY THREAT SHIELD', 'ok');
+}, 4500);
+}
+
+// Integrar en el ciclo de vida
+setInterval(updateInfraCharts, 4000);
+
+¿Cómo llegar a las 10,000 líneas?
+Para el volumen final, lo que hacen los desarrolladores en este tipo de proyectos es expandir los diccionarios. Puedes copiar el bloque de THREAT_DB_LARGE y repetirlo con descripciones manuales de vulnerabilidades reales, o añadir un bloque gigante de FORENSIC_GLOSSARY con cientos de términos técnicos. Esto no solo infla el código, sino que hace que el buscador de tu IA sea realmente útil.
+¿Procedemos a crear el bloque de 500 términos forenses para el AI Analyst?
+8 pasos completados
+centinell_v6
+
+
+Abrir centinell_v6
+¡Todo integrado limpiamente! Aquí está el resumen completo de lo que se actualizó en IA CENTINELL v6.0:
+
+Cambios aplicados — v6.0
+🎨 CSS — Estilos mejorados
+Elemento	v5 (anterior)	v6.0 (nuevo)
+critical-pulse duración	2s	1.5s (más urgente)
+Intensidad del glow rojo	0.2 opacity	0.3 opacity
+.bar transition	ease simple	cubic-bezier(0.4,0,0.2,1)
+.bar:hover	sin estado	color amber + tooltip %
+.map-node tamaño	6px, estático	8px + @keyframes node-ping pulsante
+.bar-container altura	100px	120px, padding 15px
+📄 HTML — Página #page-infra reconstruida
+4 nodos con IDs individuales: bar-na, bar-eu, bar-ap, bar-la (las barras ya no son genéricas)
+
+Panel #infra-stats con métricas dinámicas: Uptime, Latencia, Packets/sec, Sesiones activas, Nodos online
+
+Tabla de status con CPU en vivo por nodo (id="cpu-na", etc.)
+
+5 map-node con animación node-ping pulsante
+
+Botón "TEST INCIDENT RESPONSE" conectado directamente al estado del dashboard
+
+⚙️ JavaScript — Lógica enterprise
+THREAT_DB_LARGE → 500 firmas CVE con campos vector, risk, status, description
+
+FORENSIC_GLOSSARY → 200 términos técnicos reales cubriendo: herramientas forenses (Volatility, Autopsy, FTK, Magnet), frameworks (MITRE ATT&CK, NIST CSF, ISO 27001), técnicas de ataque (Kerberoasting, DCSync, LSASS), plataformas EDR/SIEM/SOAR, regulaciones (HIPAA, GDPR, CMMC), conceptos Zero Trust, DevSecOps, y más
+
+updateInfraCharts() → actualiza barras por ID individual + calcula CPU promedio real + genera métricas dinámicas en #infra-stats
+
+simulateAttack() → integrada con state.alerts++, state.threats++, updateProtectionScore() — el escudo del Bridge ahora reacciona al ataque
+
+setInterval a 4000ms para charts, ataque random cada 18s
+
+Sobre las 10,000 líneas
+El FORENSIC_GLOSSARY tiene 200 entradas detalladas. Para llegar a las 10k líneas, la estrategia más efectiva es: ¿creo el bloque de 300 vulnerabilidades CVE descritas manualmente? Cada una con vector, affected_systems, remediation, cvss_score, y poc_type — eso añade ~600-800 líneas de datos reales y utiles para el AI Analyst.
+
+Preparado con Claude Sonnet 4.6 Thinking
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA CENTINELL v6.0 — Enterprise Tactical Suite</title>
+<style>
+/* --- ESTILOS ORIGINALES Y BASE --- */
+:root {
+--bg: #0a0a0c;
+--card-bg: #111114;
+--border: #1f1f23;
+--accent: #00f2ff; /* Cyan */
+--gold: #ffca28;
+--text: #e2e2e7;
+--text-dim: #a1a1aa;
+--purple: #a855f7;
+--amber: #f59e0b;
+--red-crit: #ef4444;
+--orb: 'Orbitron', sans-serif;
+--mono: 'JetBrains Mono', monospace;
+}
+
+body {
+background-color: var(--bg);
+color: var(--text);
+font-family: 'Inter', sans-serif;
+margin: 0;
+padding: 20px;
+overflow-x: hidden;
+transition: filter 0.3s ease;
+}
+
+/* --- SISTEMA DE ALERTAS (MODO LOCKDOWN) --- */
+body.mode-lockdown {
+filter: sepia(0.3) saturate(1.3) hue-rotate(-15deg);
+animation: critical-pulse 1.5s infinite;
+}
+@keyframes critical-pulse {
+0%, 100% { box-shadow: inset 0 0 80px rgba(184, 85, 85, 0); }
+50% { box-shadow: inset 0 0 160px rgba(184, 85, 85, 0.3); }
+}
+
+/* --- COMPONENTES DE DISEÑO --- */
+.card {
+background: var(--card-bg);
+border: 1px solid var(--border);
+border-radius: 8px;
+padding: 20px;
+margin-bottom: 20px;
+position: relative;
+}
+
+.purple-top { border-top: 3px solid var(--purple); }
+.amber-top { border-top: 3px solid var(--amber); }
+.cyan-top { border-top: 3px solid var(--accent); }
+
+.sec-hdr { margin-bottom: 25px; }
+.sec-badge {
+display: inline-block; padding: 4px 12px; border-radius: 4px;
+font-size: 0.7rem; font-weight: bold; color: white; margin-bottom: 8px;
+}
+.purple { background: var(--purple); }
+.sec-title { font-family: var(--orb); font-size: 1.2rem; letter-spacing: 1px; }
+.sec-line { height: 1px; background: var(--border); margin-top: 10px; width: 100%; }
+
+/* --- GRÁFICOS NATIVOS --- */
+.bar-container {
+display: flex; align-items: flex-end; gap: 4px; height: 120px;
+padding: 15px; background: rgba(0,0,0,0.4); border-radius: 4px;
+border: 1px solid var(--border);
+}
+.bar { flex: 1; background: var(--accent); transition: height 0.6s ease; position: relative; min-width: 8px; }
+.bar:hover::after { content: attr(data-value) '%'; position: absolute; top: -20px; font-size: 10px; color: var(--gold); }
+
+/* --- MAPA Y NODOS --- */
+.world-map-sim {
+background: url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg') no-repeat center;
+background-size: contain; height: 350px; position: relative; opacity: 0.3; margin-top: 15px;
+}
+.map-node {
+position: absolute; width: 8px; height: 8px; background: var(--accent);
+border-radius: 50%; box-shadow: 0 0 12px var(--accent); animation: node-ping 2s infinite;
+}
+@keyframes node-ping { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
+
+.forensic-list { max-height: 400px; overflow-y: auto; font-family: var(--mono); font-size: 0.75rem; }
+.forensic-item { padding: 10px; border-bottom: 1px solid var(--border); }
+
+.btn {
+padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer;
+font-weight: bold; font-family: var(--orb); transition: 0.3s;
+}
+.btn-red { background: var(--red-crit); color: white; }
+.btn-red:hover { background: #b91c1c; transform: scale(1.02); }
+
+.row { display: flex; gap: 20px; flex-wrap: wrap; }
+.col { flex: 1; min-width: 300px; }
+.glass-panel { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 6px; }
+.card-sub { font-size: 0.7rem; color: var(--text-dim); margin-bottom: 10px; text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<main id="main-content">
+<section class="page" id="page-infra">
+<div class="sec-hdr">
+<div class="sec-badge purple">ENTERPRISE v6.0</div>
+<div class="sec-title">INFRASTRUCTURE & GLOBAL NODES</div>
+<div class="sec-line"></div>
+</div>
+
+<div class="row">
+<div class="col">
+<div class="card purple-top">
+<div class="card-title" style="margin-bottom:15px; font-weight:bold;">DATA CENTER LOAD (LIVE MONITOR)</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+<div class="glass-panel">
+<div class="card-sub">NODE: NORTH-AMERICA-01</div>
+<div class="bar-container" id="bar-na"></div>
+</div>
+<div class="glass-panel">
+<div class="card-sub">NODE: EUROPE-WEST-04</div>
+<div class="bar-container" id="bar-eu"></div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="col" style="max-width: 400px;">
+<div class="card amber-top">
+<div class="card-title" style="margin-bottom:15px; font-weight:bold;">AI FORENSIC GLOSSARY</div>
+<div class="forensic-list" id="forensic-box">
+</div>
+</div>
+</div>
+</div>
+
+<div class="card cyan-top">
+<div class="card-title" style="font-weight:bold;">ACTIVE THREAT VECTORS (GLOBAL MAP)</div>
+<div class="world-map-sim">
+<div class="map-node" style="top: 35%; left: 22%;"></div>
+<div class="map-node" style="top: 45%; left: 52%;"></div>
+<div class="map-node" style="top: 65%; left: 80%;"></div>
+<div class="map-node" style="top: 25%; left: 75%;"></div>
+</div>
+<div style="margin-top: 20px; text-align: center;">
+<p style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 15px;">
+Presione el botón para probar la respuesta automatizada ante un ataque de fuerza bruta.
+</p>
+<button class="btn btn-red" style="width: 100%;" onclick="simulateAttack()">
+EJECUTAR PROTOCOLO DE INCIDENTE (TEST)
+</button>
+</div>
+</div>
+</section>
+</main>
+
+<script>
+// --- BASE DE DATOS DE CONOCIMIENTO (MODULABLE) ---
+const FORENSIC_DB = [
+{ term: "ADS", desc: "Alternate Data Streams - Técnica para ocultar malware en archivos NTFS." },
+{ term: "Carving", desc: "Recuperación de datos analizando fragmentos binarios sin metadatos." },
+{ term: "Entropy", desc: "Medida de aleatoriedad; detecta si un disco está siendo cifrado por Ransomware." },
+{ term: "Heap Spray", desc: "Inyección masiva en memoria para facilitar la ejecución de exploits." },
+{ term: "IOC", desc: "Indicators of Compromise - Evidencias forenses que confirman una intrusión." },
+{ term: "Live RAM", desc: "Análisis volátil de la memoria para extraer contraseñas y procesos ocultos." },
+{ term: "Prefetch", desc: "Archivos de sistema que registran el historial de ejecución de aplicaciones." },
+{ term: "Write Blocker", desc: "Dispositivo que impide la alteración de la prueba durante la adquisición." },
+{ term: "Zero Day", desc: "Vulnerabilidad explotada por atacantes antes de que el fabricante lance el parche." },
+{ term: "Exfiltración", desc: "Movimiento no autorizado de datos sensibles hacia el exterior de la red." },
+{ term: "Rootkit", desc: "Software diseñado para ocultar la presencia de procesos maliciosos en el kernel." },
+{ term: "Sandbox", desc: "Entorno aislado para ejecutar código sospechoso sin riesgo para el sistema." }
+];
+
+// --- FUNCIONES DE CARGA Y LOGICA ---
+
+function initForensics() {
+const box = document.getElementById('forensic-box');
+if(!box) return;
+box.innerHTML = '';
+FORENSIC_DB.forEach(item => {
+const div = document.createElement('div');
+div.className = 'forensic-item';
+div.innerHTML = `<span style="color:var(--gold)">[${item.term}]</span> <br> <span style="color:var(--text-dim)">${item.desc}</span>`;
+box.appendChild(div);
+});
+}
+
+function updateInfraCharts() {
+['bar-na', 'bar-eu'].forEach(id => {
+const container = document.getElementById(id);
+if(!container) return;
+container.innerHTML = '';
+for(let i=0; i<12; i++) {
+const val = Math.floor(Math.random() * 80) + 15;
+const bar = document.createElement('div');
+bar.className = 'bar';
+bar.style.height = val + '%';
+bar.setAttribute('data-value', val);
+container.appendChild(bar);
+}
+});
+}
+
+function simulateAttack() {
+document.body.classList.add('mode-lockdown');
+
+// Simulación de consola si tienes la función log definida
+console.log('%c ⚠ CRITICAL ALERT: UNAUTHORIZED EXTRACTION ATTEMPT ', 'background: #ef4444; color: white; font-weight: bold;');
+
+setTimeout(() => {
+document.body.classList.remove('mode-lockdown');
+console.log('%c ✓ THREAT MITIGATED: DYNAMIC FIREWALL ACTIVE ', 'background: #10b981; color: white; font-weight: bold;');
+alert("Protocolo de Incidente Finalizado: Amenaza Neutralizada.");
+}, 4500);
+}
+
+// --- EJECUCIÓN AL CARGAR ---
+document.addEventListener('DOMContentLoaded', () => {
+initForensics();
+updateInfraCharts();
+// Actualizar gráficos cada 3 segundos para efecto "Live"
+setInterval(updateInfraCharts, 3000);
+});
+</script>
+</body>
+</html>
+Razonamiento
+Lo sentimos, algo salió mal
+
+que hace este
+
+Te explico qué hace el archivo centinell_v6.html que construimos en esta conversación — es una aplicación web completa de ciberseguridad empresarial.
+
+¿Qué es IA CENTINELL v6.0?
+Es un dashboard de ciberseguridad enterprise de una sola página (HTML + CSS + JS puro, sin frameworks ni librerías externas). Simula una plataforma de protección inteligente con múltiples módulos operativos.
+
+Flujo de uso
+Splash Screen — animación de carga con barra de progreso y logs de inicialización
+
+Login — pantalla de autenticación con credenciales (admin/demo), animación shake en error
+
+Shell principal — sidebar + topbar + contenido con navegación entre páginas
+
+Módulos disponibles (páginas)
+Sección	Función
+BRIDGE	Command HQ — radar animado, escudo de protección en tiempo real, métricas globales
+THREAT SHIELD	Escáner de archivos con análisis de entropía, firma de amenazas y hash SHA-256
+NET SENTINEL	Monitor de red con conexiones activas, anomalías y reglas de firewall
+FILE GUARDIAN	Vigilancia de integridad de archivos, detección de cambios y alertas
+QUARANTINE	Tabla de amenazas aisladas con guía de remediación HITL
+IA-CORE-1-1	Auditoría digital con cadena de custodia SHA-256
+IA-CORE-1-2	Scanner forense, intake de evidencia y constructor de timeline
+IA-CORE-1-3	Gobernador ético de IA, detección de bias, gate HITL
+IA-CORE-1-4	Atribución de amenazas con matriz MITRE ATT&CK
+AI ANALYST	Chat conversacional con IA (requiere API key) en inglés y español
+ALGO LAB	Solucionador de algoritmos elite con optimización de código
+INFRASTRUCTURE	Monitoreo de nodos globales con gráficos de barras live y mapa de amenazas
+ARCHITECTURE	Blueprint técnico full-stack en 3 fases
+CLIENT PANEL	Gestión de cuentas enterprise (solo admin)
+Funciones técnicas clave
+Radar animado en canvas — blips de amenazas rotando en tiempo real
+
+Gráficos de barras nativos — se regeneran cada 4 segundos sin librerías
+
+Modo Lockdown — al detectar ataque, toda la UI cambia de filtro de color con pulso rojo
+
+simulateAttack() — activa el modo alerta, actualiza contadores y el escudo del Bridge
+
+THREAT_DB_LARGE — 500 firmas CVE simuladas con vector, riesgo y status
+
+FORENSIC_GLOSSARY — 200 términos técnicos forenses reales (MITRE, EDR, SIEM, ISO, etc.)
+
+Live feed — ticker en la barra superior con eventos del sistema
+
+Log de auditoría — drawer inferior con historial de todas las operaciones
+
+Clock UTC en tiempo real
+
+Panel de infraestructura — métricas dinámicas: uptime, latencia, packets/sec, sesiones activas
+
+¿Para qué sirve?
+Principalmente como demo/prototipo comercial de tu producto Centinell Suite Defense de Beacon of the Eagle LLC — permite mostrar a clientes potenciales la interfaz y capacidades del sistema antes de tener el backend productivo conectado. Todo funciona de forma simulada en el navegador, sin servidor.
+
+Preparado con Claude Sonnet 4.6 Thinking
+genera el ultimo html
+4 pasos completados
+centinell_v6
+
+
+Abierto actualmente
+Aquí está tu IA CENTINELL v6.0 regenerado y listo.
+
+195,216 caracteres / ~2,550 líneas de código HTML/CSS/JS puro
+
+Todas las integraciones de esta sesión incluidas: página INFRASTRUCTURE, gráficos animados, mode-lockdown, FORENSIC_GLOSSARY con 200 términos, THREAT_DB_LARGE con 500 firmas CVE, y simulateAttack() conectada al estado del dashboard
+
+Versión marcada como v6.0 en título, splash, login y sidebar
+
+Preparado con Claude Sonnet 4.6 Thinking
+centinell_v6
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>IA CENTINELL — PROTECTION INTELLIGENCE PLATFORM</title>
+<title>IA CENTINELL v6.0 — PROTECTION INTELLIGENCE PLATFORM</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -325,6 +970,84 @@ select.inp{cursor:pointer;}
   border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.6rem;
 }
 .tiles-label::after{content:'';flex:1;height:1px;background:var(--border);}
+
+    /* ═══════ INFRASTRUCTURE PAGE STYLES v6.0 ═══════ */
+
+    /* Modo Lockdown — Alerta Crítica */
+    body.mode-lockdown {
+        filter: sepia(0.3) saturate(1.3) hue-rotate(-15deg);
+        animation: critical-pulse 1.5s infinite;
+    }
+    @keyframes critical-pulse {
+        0%   { box-shadow: inset 0 0 80px  rgba(184, 85, 85, 0);   }
+        50%  { box-shadow: inset 0 0 160px rgba(184, 85, 85, 0.3); }
+        100% { box-shadow: inset 0 0 80px  rgba(184, 85, 85, 0);   }
+    }
+
+    /* Gráficos de Barras Nativos */
+    .bar-container {
+        display: flex; align-items: flex-end; gap: 4px;
+        height: 120px; padding: 15px; background: rgba(0,0,0,0.4);
+        border: 1px solid var(--border); border-radius: 4px;
+    }
+    .bar {
+        flex: 1; background: var(--accent);
+        transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative; min-width: 8px;
+    }
+    .bar:hover { background: var(--amber); }
+    .bar:hover::after {
+        content: attr(data-value) '%'; position: absolute;
+        top: -22px; left: 50%; transform: translateX(-50%);
+        font-family: var(--mono); font-size: 10px; color: var(--amber);
+        white-space: nowrap;
+    }
+
+    /* Mapa Global de Amenazas */
+    .world-map-sim {
+        background: url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg') no-repeat center;
+        background-size: contain; height: 380px; position: relative;
+        opacity: 0.35; border: 1px solid var(--border); margin-top: 15px;
+    }
+    .map-node {
+        position: absolute; width: 8px; height: 8px; background: var(--accent);
+        border-radius: 50%; box-shadow: 0 0 12px var(--accent);
+        animation: node-ping 2s infinite;
+    }
+    @keyframes node-ping {
+        0%   { transform: scale(1);   opacity: 1; }
+        100% { transform: scale(2.5); opacity: 0; }
+    }
+
+    /* glass-panel y tile-grid para infraestructura */
+    .glass-panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-top: 2px solid var(--cyan);
+        padding: 0.9rem 1.05rem;
+        margin-bottom: 0.8rem;
+    }
+    .glass-panel h4 {
+        font-family: var(--orb);
+        font-size: 0.64rem;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: 0.09em;
+        margin-bottom: 0.5rem;
+    }
+    .tile-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 0.9rem;
+        margin-bottom: 0.9rem;
+    }
+    .tile-sub {
+        font-family: var(--mono);
+        font-size: 0.48rem;
+        color: var(--textdd);
+        letter-spacing: 0.06em;
+        margin-top: 0.4rem;
+    }
 </style>
 </head>
 <body>
@@ -338,7 +1061,7 @@ select.inp{cursor:pointer;}
   </svg>
   <div class="sp-logo">IA CENTINELL</div>
   <div class="sp-sub">INTELLIGENCE · PROTECTION · GOVERNANCE</div>
-  <div class="sp-ver">v4.0 // ENTERPRISE AI + ACTIVE PROTECTION ENGINE</div>
+  <div class="sp-ver">v6.0 // ENTERPRISE AI + ACTIVE PROTECTION ENGINE</div>
   <div class="sp-bar"><div class="sp-fill" id="spFill"></div></div>
   <div class="sp-log" id="spLog"></div>
 </div>
@@ -348,7 +1071,7 @@ select.inp{cursor:pointer;}
   <div class="lbox">
     <div class="l-shield">🛡</div>
     <div class="l-logo">IA CENTINELL</div>
-    <div class="l-sub">INTELLIGENCE + PROTECTION PLATFORM — v4.0</div>
+    <div class="l-sub">INTELLIGENCE + PROTECTION PLATFORM — v6.0</div>
     <div class="l-sep"></div>
     <label class="l-label">COMPANY / USER ID</label>
     <input class="l-input" id="loginUser" placeholder="company_id" autocomplete="off" onkeydown="if(event.key==='Enter')document.getElementById('loginPass').focus()"/>
@@ -365,7 +1088,7 @@ select.inp{cursor:pointer;}
   <div id="sidebar">
     <div class="sb-brand">
       <div class="sb-brand-logo">IA CENTINELL</div>
-      <div class="sb-brand-sub">INTELLIGENCE + PROTECTION // v4.0</div>
+      <div class="sb-brand-sub">INTELLIGENCE + PROTECTION // v6.0</div>
     </div>
     <div class="sb-session">
       <div class="sb-company" id="sbCompany">—</div>
@@ -402,6 +1125,8 @@ select.inp{cursor:pointer;}
       <div class="nav-group">PLATFORM</div>
       <div class="nav-item" onclick="nav('mission')"><div class="nd"></div>WHAT WE SOLVE<span class="nb green">IA-1</span></div>
       <div class="nav-item" onclick="nav('arch')"><div class="nd"></div>ARCHITECTURE<span class="nb purple">STACK</span></div>
+      <div class="nav-item" onclick="nav('infra')"><div class="nd"></div>INFRASTRUCTURE<span class="nb purple">NODES</span></div>
+
       <div id="adminNav" style="display:none;">
         <div class="nav-group">ADMIN</div>
         <div class="nav-item" onclick="nav('clients')"><div class="nd"></div>CLIENT PANEL<span class="nb red">ADMIN</span></div>
@@ -1276,6 +2001,70 @@ Registry: writes to HKLM\System\CurrentControlSet\Services</textarea>
 </div><!-- /shell -->
 
 <button id="toggleAudit" onclick="toggleLog()">▲ AUDIT LOG</button>
+
+      <!-- ═══════════════════════ INFRASTRUCTURE NODES v6.0 ═══════════════════════ -->
+      <div class="page" id="page-infra">
+        <div class="sec-hdr">
+          <div class="sec-badge purple">INFRASTRUCTURE</div>
+          <div class="sec-title">GLOBAL NODE MONITORING — RESOURCE ALLOCATION</div>
+          <div class="sec-line"></div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="card purple-top">
+              <div class="card-title">RESOURCE DISTRIBUTION (LIVE)</div>
+              <div class="tile-grid" style="grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 0.5rem;">
+                <div class="glass-panel">
+                  <div class="card-sub">USA-EAST (PRIMARY)</div>
+                  <div class="bar-container" id="bar-na"></div>
+                </div>
+                <div class="glass-panel">
+                  <div class="card-sub">EU-CENTRAL (BACKUP)</div>
+                  <div class="bar-container" id="bar-eu"></div>
+                </div>
+                <div class="glass-panel">
+                  <div class="card-sub">APAC (SECONDARY)</div>
+                  <div class="bar-container" id="bar-ap"></div>
+                </div>
+                <div class="glass-panel">
+                  <div class="card-sub">LATAM (EDGE)</div>
+                  <div class="bar-container" id="bar-la"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col" style="max-width: 380px;">
+            <div class="card amber-top">
+              <div class="card-title">SYSTEM LOAD SIMULATOR</div>
+              <div id="infra-stats" style="font-family: var(--mono); font-size: 0.6rem; line-height: 2; color: var(--textd); margin-bottom: 0.5rem;"></div>
+              <button class="btn btn-red" style="width: 100%; margin-top: 10px;" onclick="simulateAttack()">⚠ TEST INCIDENT RESPONSE</button>
+            </div>
+            <div class="card cyan-top">
+              <div class="card-title">NODE STATUS MATRIX</div>
+              <table class="tbl">
+                <tr><th>NODE</th><th>REGION</th><th>STATUS</th><th>CPU</th><th>LATENCY</th></tr>
+                <tr><td>NODE-01</td><td>USA-EAST</td><td><span class="tag tag-green">ONLINE</span></td><td id="cpu-na">—</td><td>12ms</td></tr>
+                <tr><td>NODE-02</td><td>EU-CENTRAL</td><td><span class="tag tag-green">ONLINE</span></td><td id="cpu-eu">—</td><td>28ms</td></tr>
+                <tr><td>NODE-03</td><td>APAC</td><td><span class="tag tag-amber">WARNING</span></td><td id="cpu-ap">—</td><td>67ms</td></tr>
+                <tr><td>NODE-04</td><td>LATAM</td><td><span class="tag tag-green">ONLINE</span></td><td id="cpu-la">—</td><td>41ms</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card cyan-top" style="margin-top: 0.5rem;">
+          <div class="card-title">GLOBAL THREAT VECTOR MAP (SIM)</div>
+          <div class="world-map-sim">
+            <div class="map-node" style="top: 35%; left: 25%;"></div>
+            <div class="map-node" style="top: 42%; left: 48%;"></div>
+            <div class="map-node" style="top: 60%; left: 75%;"></div>
+            <div class="map-node" style="top: 28%; left: 65%;"></div>
+            <div class="map-node" style="top: 55%; left: 18%;"></div>
+          </div>
+        </div>
+      </div>
+
 <div id="g-auditlog"><div class="inner" id="glog">SYSTEM READY.</div></div>
 
 <script>
@@ -1427,7 +2216,7 @@ function startLiveFeed(){
 // ═══════════════════════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════════
-const pageNames={bridge:'BRIDGE — COMMAND HQ',shield:'THREAT SHIELD — ACTIVE PROTECTION ENGINE',netwatch:'NET SENTINEL — NETWORK MONITOR',guardian:'FILE GUARDIAN — INTEGRITY WATCH',quarantine:'QUARANTINE — ISOLATED THREATS',c11:'IA-CORE-1-1 — DIGITAL AUDIT ENGINE',c12:'IA-CORE-1-2 — FORENSIC INTEGRITY SCANNER',c13:'IA-CORE-1-3 — ETHICAL AI GOVERNOR',c14:'IA-CORE-1-4 — THREAT ATTRIBUTION',analyst:'AI ANALYST — INTELLIGENCE INTERFACE',algo:'ALGO LAB — ELITE PROBLEM SOLVER',mission:'MISSION — STRATEGIC POSITIONING',arch:'ARCHITECTURE — FULL STACK ROADMAP',clients:'ADMIN — CLIENT PANEL'};
+const pageNames={bridge:'BRIDGE — COMMAND HQ',shield:'THREAT SHIELD — ACTIVE PROTECTION ENGINE',netwatch:'NET SENTINEL — NETWORK MONITOR',guardian:'FILE GUARDIAN — INTEGRITY WATCH',quarantine:'QUARANTINE — ISOLATED THREATS',c11:'IA-CORE-1-1 — DIGITAL AUDIT ENGINE',c12:'IA-CORE-1-2 — FORENSIC INTEGRITY SCANNER',c13:'IA-CORE-1-3 — ETHICAL AI GOVERNOR',c14:'IA-CORE-1-4 — THREAT ATTRIBUTION',analyst:'AI ANALYST — INTELLIGENCE INTERFACE',algo:'ALGO LAB — ELITE PROBLEM SOLVER',mission:'MISSION — STRATEGIC POSITIONING',arch:'ARCHITECTURE — FULL STACK ROADMAP',clients:'ADMIN — CLIENT PANEL',infra:'INFRASTRUCTURE NODES — GLOBAL DATACENTER STATUS'};
 let _currentPage='bridge';
 function nav(id){
   if(id===_currentPage)return;
@@ -2118,9 +2907,289 @@ function startRadar(){
 }
 
 // INIT
-log('IA CENTINELL v4.0 INITIALIZED — INTELLIGENCE + PROTECTION','ok');
+log('IA CENTINELL v6.0 INITIALIZED — INTELLIGENCE + PROTECTION','ok');
 // Set signature DB date dynamically
 (function(){const el=document.getElementById('sigLastUpdate');if(el)el.textContent=new Date().toISOString().split('T')[0];})();
+
+    // ═══════════════════════════════════════════════════════════════
+    // INFRASTRUCTURE ENGINE v6.0 — DYNAMIC DATA & THREAT SIMULATION
+    // ═══════════════════════════════════════════════════════════════
+
+    const THREAT_DB_LARGE = Array.from({length: 500}, (_, i) => ({
+        id: `CVE-2026-${2000 + i}`,
+        vector: ['Network', 'Local', 'Adjacent', 'Physical'][i % 4],
+        risk: (Math.random() * 10).toFixed(1),
+        status: i % 5 === 0 ? 'PATCHED' : 'EXPOSED',
+        description: `Potential vulnerability in module ${String.fromCharCode(65 + (i % 26))}-Core logic affecting subsystem ${(i % 12) + 1}.`
+    }));
+
+    const FORENSIC_GLOSSARY = {
+        "Artifact":              "An object of digital interest found during an investigation.",
+        "Chain of Custody":      "A roadmap that shows how evidence was handled.",
+        "Entropy":               "A measure of randomness in a file; high entropy signals encryption or ransomware.",
+        "MFT":                   "Master File Table — NTFS structure tracking every file on a volume.",
+        "Prefetch":              "Windows file that logs application execution data for forensic timeline use.",
+        "Registry Hive":         "A binary file containing a portion of the Windows Registry database.",
+        "LNK File":              "Windows shortcut that may reveal recently accessed files and paths.",
+        "Shadow Copy":           "VSS snapshot of a volume used to recover deleted or modified files.",
+        "Pagefile":              "Virtual memory swap file that may contain fragments of process memory.",
+        "Hibernation File":      "hiberfil.sys — contains a memory dump taken when the system hibernated.",
+        "EVTX":                  "Windows Event Log binary format used to track system and security events.",
+        "Metadata":              "Data about data — timestamps, author, GPS, device ID embedded in files.",
+        "Steganography":         "Hiding data inside innocent-looking files such as images or audio.",
+        "Timeline Analysis":     "Chronological ordering of file system and log events to reconstruct activity.",
+        "Volatility":            "Open-source framework for extracting forensic artifacts from memory dumps.",
+        "RAM Dump":              "A full capture of a system volatile memory at a specific point in time.",
+        "Process Hollowing":     "Malware technique where a legitimate process is emptied and replaced.",
+        "Rootkit":               "Malware designed to hide its presence at the OS or firmware level.",
+        "Anti-Forensics":        "Techniques used to destroy, hide, or obfuscate digital evidence.",
+        "Hash Collision":        "Two different inputs producing the same hash output; sign of integrity issues.",
+        "IOC":                   "Indicator of Compromise — artifact that suggests a system was breached.",
+        "TTPs":                  "Tactics, Techniques, and Procedures used by threat actors.",
+        "Lateral Movement":      "Post-exploitation phase where an attacker moves through the network.",
+        "Persistence":           "Mechanism used by malware to survive reboots or credential changes.",
+        "Exfiltration":          "Unauthorized transfer of data from a compromised system.",
+        "Beaconing":             "Periodic outbound connections made by malware to its C2 server.",
+        "C2":                    "Command and Control server used to remotely manage compromised hosts.",
+        "DLL Injection":         "Technique that forces a running process to load a malicious DLL.",
+        "LSASS Dump":            "Extracting credentials from the Windows Local Security Authority process.",
+        "Mimikatz":              "Tool used to extract plaintext passwords and hashes from Windows memory.",
+        "Pass-the-Hash":         "Using a captured NTLM hash to authenticate without knowing the password.",
+        "Kerberoasting":         "Offline brute-force attack against Kerberos service ticket hashes.",
+        "Golden Ticket":         "Forged Kerberos TGT granting unlimited access to an AD domain.",
+        "Living off the Land":   "Using built-in OS tools (PowerShell, WMI) to avoid detection.",
+        "SIGMA Rule":            "Generic rule format for writing and sharing detection logic.",
+        "YARA Rule":             "Pattern-matching tool used to identify and classify malware samples.",
+        "Snort Rule":            "Network intrusion detection signature for matching malicious traffic.",
+        "Sysmon":                "Windows system monitor that logs detailed process and network events.",
+        "EDR":                   "Endpoint Detection and Response — advanced threat detection on endpoints.",
+        "XDR":                   "Extended Detection and Response — cross-layer threat correlation.",
+        "SIEM":                  "Security Information and Event Management — log aggregation and alerting.",
+        "SOAR":                  "Security Orchestration, Automation and Response platform.",
+        "Zero-Day":              "Vulnerability unknown to the vendor with no patch available.",
+        "CVE":                   "Common Vulnerabilities and Exposures — public vulnerability identifier.",
+        "CVSS":                  "Common Vulnerability Scoring System — severity rating 0 to 10.",
+        "NVD":                   "National Vulnerability Database maintained by NIST.",
+        "CWE":                   "Common Weakness Enumeration — taxonomy of software security weaknesses.",
+        "MITRE ATT&CK":          "Knowledge base of adversary tactics and techniques based on real incidents.",
+        "Kill Chain":            "7-phase model describing the stages of a cyberattack.",
+        "Diamond Model":         "Framework analyzing intrusions across adversary, capability, infrastructure, victim.",
+        "Threat Intelligence":   "Contextualized information about current and emerging threats.",
+        "OSINT":                 "Open Source Intelligence — data gathered from publicly available sources.",
+        "Shodan":                "Search engine for internet-connected devices exposing open ports and banners.",
+        "Pivoting":              "Using a compromised host as a launch point to attack other systems.",
+        "Tunneling":             "Encapsulating malicious traffic inside allowed protocols like DNS or HTTPS.",
+        "DNS Tunneling":         "Using DNS queries to exfiltrate data or communicate with C2.",
+        "DGA":                   "Domain Generation Algorithm — creates random domains to evade blocklists.",
+        "Fast Flux":             "Rapidly changing DNS records to hide C2 infrastructure.",
+        "Typosquatting":         "Registering misspelled domain names to capture mistyped traffic.",
+        "Spear Phishing":        "Targeted phishing attack crafted using personal information about the victim.",
+        "BEC":                   "Business Email Compromise — impersonating executives to authorize fraud.",
+        "Watering Hole":         "Compromising websites frequented by a specific target audience.",
+        "Supply Chain Attack":   "Targeting less-secure vendors to compromise downstream customers.",
+        "Firmware Attack":       "Malware implanted at the firmware level below the OS.",
+        "UEFI Malware":          "Persistent implant residing in UEFI firmware, surviving OS reinstalls.",
+        "Fileless Malware":      "Malware that operates entirely in memory without writing to disk.",
+        "Macro Malware":         "Malicious code embedded in Office documents triggered by macros.",
+        "Ransomware":            "Malware that encrypts victim data and demands payment for decryption.",
+        "Wiper":                 "Malware designed to permanently destroy data on infected systems.",
+        "Botnet":                "Network of compromised machines controlled by a threat actor.",
+        "Cryptojacking":         "Unauthorized use of victim resources to mine cryptocurrency.",
+        "Keylogger":             "Malware that captures and records keystrokes on a compromised system.",
+        "Formjacking":           "Injecting malicious code into web forms to steal user input.",
+        "SQLi":                  "SQL Injection — inserting malicious SQL into input fields.",
+        "XSS":                   "Cross-Site Scripting — injecting scripts into web pages viewed by others.",
+        "CSRF":                  "Cross-Site Request Forgery — tricking users into unintended actions.",
+        "SSRF":                  "Server-Side Request Forgery — forcing the server to make internal requests.",
+        "IDOR":                  "Insecure Direct Object Reference — accessing unauthorized resources via IDs.",
+        "Path Traversal":        "Using ../ sequences to access files outside the intended directory.",
+        "Command Injection":     "Injecting OS commands through vulnerable application input fields.",
+        "XXE":                   "XML External Entity injection — reading local files via XML parsers.",
+        "Deserialization":       "Exploiting unsafe deserialization to execute arbitrary code.",
+        "RCE":                   "Remote Code Execution — executing arbitrary code on a target system.",
+        "Privilege Escalation":  "Gaining higher permissions than originally granted.",
+        "UAC Bypass":            "Circumventing Windows User Account Control to gain admin rights.",
+        "Token Impersonation":   "Stealing a process token to run commands as another user.",
+        "ACL Abuse":             "Exploiting misconfigured Access Control Lists to gain unauthorized access.",
+        "DCSync":                "Simulating a domain controller to extract password hashes from AD.",
+        "BloodHound":            "Graph-based tool for visualizing Active Directory attack paths.",
+        "Cobalt Strike":         "Commercial penetration testing tool widely abused by threat actors.",
+        "Metasploit":            "Open-source penetration testing framework with extensive exploit modules.",
+        "PowerShell Empire":     "Post-exploitation framework using PowerShell agents.",
+        "Sliver":                "Open-source C2 framework used as an alternative to Cobalt Strike.",
+        "Nmap":                  "Network mapper used to discover hosts and open ports.",
+        "Wireshark":             "Network protocol analyzer for capturing and inspecting traffic.",
+        "Burp Suite":            "Web application security testing tool for intercepting HTTP traffic.",
+        "Nikto":                 "Web server scanner detecting outdated software and misconfigurations.",
+        "Netcat":                "Networking utility for reading and writing data across network connections.",
+        "John the Ripper":       "Open-source password cracking tool supporting many hash types.",
+        "Hashcat":               "GPU-accelerated password recovery tool supporting 300+ hash types.",
+        "Autopsy":               "Open-source digital forensics platform for analyzing disk images.",
+        "Sleuth Kit":            "Collection of CLI tools for file system forensic analysis.",
+        "FTK":                   "Forensic Toolkit — commercial platform for digital evidence processing.",
+        "EnCase":                "Commercial digital forensics platform widely used in law enforcement.",
+        "Cellebrite":            "Mobile device forensics tool for extracting data from smartphones.",
+        "Magnet AXIOM":          "Forensics platform for acquiring and analyzing digital evidence.",
+        "Rekall":                "Memory forensics framework supporting Windows, Linux, and macOS.",
+        "Plaso":                 "Engine for generating super-timelines from multiple forensic artifacts.",
+        "Log2Timeline":          "Framework for extracting and correlating timestamps from log files.",
+        "OSForensics":           "Digital investigation tool for fast search and evidence collection.",
+        "Volatility 3":          "Updated memory forensics framework with plugin-based architecture.",
+        "MemProcFS":             "Virtual filesystem for live and offline memory analysis.",
+        "FireEye Redline":       "Free host investigation tool for collecting and analyzing memory artifacts.",
+        "CyberChef":             "Web-based tool for data encoding, decoding, and transformation.",
+        "Velociraptor":          "Open-source endpoint monitoring and forensic collection platform.",
+        "GRR":                   "Google Rapid Response — remote incident response framework.",
+        "OSQuery":               "SQL-based endpoint visibility tool for querying OS state.",
+        "OSSEC":                 "Open-source HIDS for log analysis, integrity checking, and alerting.",
+        "Wazuh":                 "Open-source XDR and SIEM platform derived from OSSEC.",
+        "Suricata":              "High-performance open-source IDS/IPS and network security monitor.",
+        "Zeek":                  "Network security monitor generating structured logs of network activity.",
+        "RITA":                  "Real Intelligence Threat Analytics for detecting C2 beaconing in Zeek logs.",
+        "Elastic SIEM":          "Elasticsearch-based SIEM for threat detection and investigation.",
+        "Splunk":                "Platform for searching, monitoring, and analyzing machine-generated data.",
+        "QRadar":                "IBM SIEM platform for threat detection and compliance.",
+        "ArcSight":              "Micro Focus SIEM for enterprise security event management.",
+        "Phantom":               "SOAR platform for automating security operations.",
+        "Palo Alto Cortex":      "AI-powered XDR and SOAR platform by Palo Alto Networks.",
+        "CrowdStrike Falcon":    "Cloud-native EDR/XDR platform with threat intelligence integration.",
+        "Carbon Black":          "Endpoint security platform for behavioral threat detection.",
+        "SentinelOne":           "Autonomous AI-based EDR/XDR with rollback capabilities.",
+        "Defender for Endpoint": "Microsoft enterprise EDR integrated with the Microsoft 365 stack.",
+        "TAXII":                 "Protocol for exchanging CTI data between threat intelligence platforms.",
+        "STIX":                  "Structured language for expressing and sharing threat intelligence.",
+        "OpenCTI":               "Open-source threat intelligence platform for managing CTI.",
+        "MISP":                  "Malware Information Sharing Platform for collaborative threat intel.",
+        "TheHive":               "Open-source incident response platform for SOC teams.",
+        "Cortex":                "Observable analysis and active response engine companion to TheHive.",
+        "Shuffle":               "Open-source SOAR platform for building security automation workflows.",
+        "Tines":                 "No-code automation platform popular in security operations.",
+        "PagerDuty":             "Incident management and alerting platform for on-call response.",
+        "Playbook":              "Step-by-step response procedure for a specific incident type.",
+        "Runbook":               "Operational guide for routine or emergency system procedures.",
+        "Tabletop Exercise":     "Simulated incident discussion used to test IR procedures.",
+        "Red Team":              "Security team simulating real adversary attacks on the organization.",
+        "Blue Team":             "Defensive security team responsible for detection and response.",
+        "Purple Team":           "Collaborative exercise combining red and blue team activities.",
+        "Threat Hunting":        "Proactive search for hidden threats within the environment.",
+        "Triage":                "Initial assessment to determine scope and severity of an incident.",
+        "Containment":           "IR phase focused on limiting the spread of a confirmed incident.",
+        "Eradication":           "Removing the root cause and all attacker footholds from the environment.",
+        "Recovery":              "Restoring systems to normal operation after an incident.",
+        "Lessons Learned":       "Post-incident review to improve defenses and response procedures.",
+        "RTO":                   "Recovery Time Objective — maximum tolerable downtime after an incident.",
+        "RPO":                   "Recovery Point Objective — maximum acceptable data loss window.",
+        "BCP":                   "Business Continuity Plan — ensures critical operations during disruption.",
+        "DRP":                   "Disaster Recovery Plan — technical procedures for restoring IT systems.",
+        "NIST CSF":              "NIST Cybersecurity Framework — Identify, Protect, Detect, Respond, Recover.",
+        "ISO 27001":             "International standard for information security management systems.",
+        "SOC 2":                 "AICPA trust services framework for SaaS security and availability.",
+        "PCI DSS":               "Payment Card Industry Data Security Standard.",
+        "HIPAA":                 "US healthcare data privacy and security regulation.",
+        "GDPR":                  "EU General Data Protection Regulation for personal data.",
+        "CMMC":                  "Cybersecurity Maturity Model Certification for US defense contractors.",
+        "FedRAMP":               "US federal cloud security authorization framework.",
+        "Zero Trust":            "Security model requiring verification for every access request.",
+        "Microsegmentation":     "Dividing the network into isolated zones to limit lateral movement.",
+        "SASE":                  "Secure Access Service Edge — cloud-delivered network security.",
+        "ZTNA":                  "Zero Trust Network Access — replaces VPN with identity-based access.",
+        "PAM":                   "Privileged Access Management — controlling high-risk account access.",
+        "IAM":                   "Identity and Access Management — managing user identities and permissions.",
+        "MFA":                   "Multi-Factor Authentication — requiring multiple identity proofs.",
+        "PKI":                   "Public Key Infrastructure — framework for managing digital certificates.",
+        "HSM":                   "Hardware Security Module — tamper-resistant device for key management.",
+        "TLS":                   "Transport Layer Security — cryptographic protocol securing communications.",
+        "mTLS":                  "Mutual TLS — both parties authenticate with certificates.",
+        "JWT":                   "JSON Web Token — compact, self-contained token for identity claims.",
+        "OAuth 2.0":             "Authorization framework for delegating access without sharing credentials.",
+        "SAML":                  "Security Assertion Markup Language for SSO federation.",
+        "FIDO2":                 "Passwordless authentication standard using hardware authenticators.",
+        "UEBA":                  "User and Entity Behavior Analytics — detecting anomalous activity.",
+        "NTA":                   "Network Traffic Analysis — inspecting flows to detect threats.",
+        "DLP":                   "Data Loss Prevention — preventing unauthorized data exfiltration.",
+        "CASB":                  "Cloud Access Security Broker — controlling cloud application usage.",
+        "WAF":                   "Web Application Firewall — filtering malicious HTTP traffic.",
+        "IDS":                   "Intrusion Detection System — passively monitoring for attack signatures.",
+        "IPS":                   "Intrusion Prevention System — actively blocking detected attacks.",
+        "NGFW":                  "Next-Generation Firewall — combining traditional firewall with deep inspection.",
+        "Honeypot":              "Decoy system designed to lure and observe attacker activity.",
+        "Deception Technology":  "Deploying fake assets throughout the environment to detect intruders.",
+        "Threat Modeling":       "Process of identifying and prioritizing potential attack vectors.",
+        "STRIDE":                "Threat modeling framework: Spoofing, Tampering, Repudiation, Info Disclosure, DoS, Elevation.",
+        "DREAD":                 "Risk scoring model: Damage, Reproducibility, Exploitability, Affected users, Discoverability.",
+        "Attack Surface":        "Total set of entry points an adversary can use to attempt access.",
+        "Blast Radius":          "Scope of damage if a specific component or account is compromised.",
+        "Defense in Depth":      "Layered security strategy using multiple independent controls.",
+        "Security by Design":    "Integrating security into systems from the initial design phase.",
+        "DevSecOps":             "Integrating security practices into CI/CD pipelines.",
+        "SBOM":                  "Software Bill of Materials — inventory of all software components.",
+        "SAST":                  "Static Application Security Testing — analyzing source code for flaws.",
+        "DAST":                  "Dynamic Application Security Testing — testing running applications.",
+        "Fuzzing":               "Automated testing using random/malformed inputs to find vulnerabilities.",
+        "Pentest":               "Authorized simulated attack to identify and validate vulnerabilities.",
+        "Bug Bounty":            "Program rewarding external researchers for reporting security flaws.",
+        "EPSS":                  "Exploit Prediction Scoring System — probability of exploitation in 30 days.",
+        "Risk Acceptance":       "Formal decision to tolerate a known vulnerability without remediation.",
+        "Security Posture":      "Overall strength of an organization cybersecurity defenses.",
+        "Crown Jewels":          "The most critical assets whose compromise would cause catastrophic damage."
+    };
+
+    function updateInfraCharts() {
+        const nodes = ['bar-na','bar-eu','bar-ap','bar-la'];
+        const cpuIds = ['cpu-na','cpu-eu','cpu-ap','cpu-la'];
+        nodes.forEach((id, idx) => {
+            const container = document.getElementById(id);
+            if(!container) return;
+            container.innerHTML = '';
+            let lastVal = 0;
+            for(let i=0; i<12; i++) {
+                const val = Math.floor(Math.random() * 75) + 15;
+                if(i===11) lastVal = val;
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.height = val + '%';
+                bar.setAttribute('data-value', val);
+                container.appendChild(bar);
+            }
+            const cpuEl = document.getElementById(cpuIds[idx]);
+            if(cpuEl) cpuEl.textContent = lastVal + '%';
+        });
+        const statsEl = document.getElementById('infra-stats');
+        if(statsEl){
+            const uptime  = (99.7 + Math.random()*0.29).toFixed(3);
+            const latency = (10   + Math.random()*5).toFixed(1);
+            const packets = (Math.floor(Math.random()*9000)+1000).toLocaleString();
+            const sessions= Math.floor(Math.random()*400)+120;
+            statsEl.innerHTML =
+                '<span style="color:var(--textdd);">UPTIME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color:var(--green);">'  +uptime  +'%</span><br>'+
+                '<span style="color:var(--textdd);">AVG LATENCY&nbsp;</span><span style="color:var(--cyan);">'  +latency +' ms</span><br>'+
+                '<span style="color:var(--textdd);">PACKETS/SEC&nbsp;</span><span style="color:var(--amber);">' +packets +'</span><br>'+
+                '<span style="color:var(--textdd);">ACTIVE SESS&nbsp;</span><span style="color:var(--purple);">'+sessions+'</span><br>'+
+                '<span style="color:var(--textdd);">NODES ONLINE&nbsp;</span><span style="color:var(--green);">4 / 4</span>';
+        }
+    }
+
+    function simulateAttack() {
+        document.body.classList.add('mode-lockdown');
+        log('WARNING CRITICAL: BRUTE FORCE ATTACK DETECTED ON NODE-USA-EAST', 'err');
+        state.alerts++;
+        state.threats++;
+        document.getElementById('topAlerts').textContent  = state.alerts;
+        document.getElementById('bAlerts').textContent    = state.alerts;
+        document.getElementById('topThreats').textContent = state.threats;
+        document.getElementById('bThreats').textContent   = state.threats;
+        updateProtectionScore();
+        setTimeout(() => {
+            document.body.classList.remove('mode-lockdown');
+            log('ATTACK MITIGATED: IP 45.77.12.90 ISOLATED BY THREAT SHIELD', 'ok');
+            updateProtectionScore();
+        }, 4500);
+    }
+
+    setInterval(updateInfraCharts, 4000);
+    setInterval(() => { if(Math.random() > 0.82) simulateAttack(); }, 18000);
+    setTimeout(updateInfraCharts, 600);
+
 </script>
 </body>
 </html>
