@@ -1,0 +1,69 @@
+resource "aws_lb" "alb" {
+  name               = "${var.project_name}-alb"
+  internal           = false
+  load_balancer_type = "application"
+  subnets            = [for s in aws_subnet.public : s.id]
+  security_groups    = [aws_security_group.alb_sg.id]
+  tags = { Name = "${var.project_name}-alb" }
+}
+
+resource "aws_security_group" "alb_sg" {
+  name   = "${var.project_name}-alb-sg"
+  vpc_id = aws_vpc.main.id
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress { from_port = 0; to_port = 0; protocol = "-1"; cidr_blocks = ["0.0.0.0/0"] }
+}
+
+resource "aws_lb_target_group" "tg" {
+  name     = "${var.project_name}-tg"
+  port     = var.container_port
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.main.id
+  health_check { path = "/health"; interval = 30; healthy_threshold = 2; unhealthy_threshold = 3; timeout = 5 }
+}
+
+resource "aws_lb_listener" "http" {
+  load_balancer_arn = aws_lb.alb.arn
+  port              = 80
+  protocol          = "HTTP"
+  default_action {
+    type = "forward"
+    target_group_arn = aws_lb_target_group.tg.arn
+  }
+}
+
+resource "aws_ecs_service" "service" {
+  name            = "${var.project_name}-service"
+  cluster         = aws_ecs_cluster.cluster.id
+  task_definition = aws_ecs_task_definition.app.arn
+  desired_count   = var.desired_count
+  launch_type     = "FARGATE"
+  network_configuration {
+    subnets         = [for s in aws_subnet.private : s.id]
+    security_groups = [aws_security_group.ecs_sg.id]
+    assign_public_ip = false
+  }
+  load_balancer {
+    target_group_arn = aws_lb_target_group.tg.arn
+    container_name   = "${var.project_name}-container"
+    container_port   = var.container_port
+  }
+  depends_on = [aws_lb_listener.http]
+}
+
+resource "aws_security_group" "ecs_sg" {
+  name   = "${var.project_name}-ecs-sg"
+  vpc_id = aws_vpc.main.id
+  ingress {
+    from_port       = var.container_port
+    to_port         = var.container_port
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb_sg.id]
+  }
+  egress { from_port = 0; to_port = 0; protocol = "-1"; cidr_blocks = ["0.0.0.0/0"] }
+}
