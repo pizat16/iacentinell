@@ -7,3 +7,9 @@ app/uploads/*
 .venv/
 venv/
 *.log
+
+# Local environment credentials must never be committed.
+.env
+.env.*
+!.env.example
+!.env.*.example
